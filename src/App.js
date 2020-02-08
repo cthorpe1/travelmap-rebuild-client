@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
+import HomePage from "./components/HomePage/HomePage";
+import LoginPage from "./components/LoginPage/LoginPage";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
 
 function App() {
   const [apiResponse, setApiResponse] = useState({ response: "" });
@@ -11,9 +14,18 @@ function App() {
   //     .then(res => setApiResponse({ response: res }))
   //     .catch(err => console.log(err));
   // }, []);
-  return <div className="App">
-    <button type="button" className="btn btn-danger">TEST</button>
-  </div>;
+  return (
+    <BrowserRouter>
+      <main className="container">
+        <Navbar />
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+        </Switch>
+      </main>
+    </BrowserRouter>
+  );
 }
 
 export default App;
