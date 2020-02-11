@@ -2,36 +2,59 @@ import React from "react";
 import styles from "./LoginPage.module.css";
 
 const HomePage = () => {
+  const handleLogin = e => {
+    e.preventDefault();
+
+    fetch("http://localhost:5000/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      mode: "cors",
+      body: JSON.stringify({
+        email: e.target[0].value,
+        password: e.target[1].value
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Data: ", data);
+      })
+      .catch(err => {
+        console.log("In Catch Block: ", err);
+      });
+  };
+
   return (
     <div id={styles.LoginFormContainer}>
       <h1>Please Login</h1>
-      <form>
-        <div class="form-group">
-          <label for="inputEmail3">Email</label>
+      <form onSubmit={handleLogin}>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
           <div>
             <input
               type="email"
-              class="form-control"
-              id="inputEmail3"
+              className="form-control"
+              id="email"
               placeholder="Email"
             />
           </div>
         </div>
-        <div class="form-group">
-          <label for="inputPassword3">Password</label>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
           <div>
             <input
               type="password"
-              class="form-control"
-              id="inputPassword3"
+              className="form-control"
+              id="password"
               placeholder="Password"
             />
           </div>
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <div>
             <button type="submit" className="btn btn-primary">
-              Sign in
+              Login
             </button>
           </div>
         </div>

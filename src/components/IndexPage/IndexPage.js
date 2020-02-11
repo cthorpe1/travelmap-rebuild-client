@@ -1,5 +1,6 @@
 import React from "react";
-import classes from "./HomePage.module.css";
+import { Link } from "react-router-dom";
+import classes from "./IndexPage.module.css";
 
 const HomePage = () => {
   return (
@@ -12,12 +13,17 @@ const HomePage = () => {
       <hr className="my-4" />
       <p>Please "Sign Up" or "Login" below</p>
 
-      <a className="btn btn-primary btn-lg" href="/register" role="button">
+      <Link className="btn btn-primary btn-lg" to="/register" role="button">
         Sign Up
-      </a>
-      <a className="btn btn-primary btn-lg" id={classes.Login} href="/login" role="button">
+      </Link>
+      <Link
+        className="btn btn-primary btn-lg"
+        id={classes.Login}
+        to="/login"
+        role="button"
+      >
         Login
-      </a>
+      </Link>
     </div>
   );
 };

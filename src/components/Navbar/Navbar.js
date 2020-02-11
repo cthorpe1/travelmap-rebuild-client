@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
@@ -7,9 +8,9 @@ const Navbar = () => {
       className="navbar navbar-expand-lg navbar-dark bg-primary"
       id={styles.Nav}
     >
-      <a className="navbar-brand" href="/">
+      <Link className="navbar-brand" to="/">
         Travel Map
-      </a>
+      </Link>
       <button
         className="navbar-toggler"
         type="button"
@@ -23,13 +24,13 @@ const Navbar = () => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarColor01">
-        <ul className="navbar-nav mr-auto">
+        <ul className="navbar-nav ml-auto">
           <li className="nav-item active">
-            <a className="nav-link" href="/">
+            <Link className="nav-link" to="/">
               Home <span className="sr-only">(current)</span>
-            </a>
+            </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a className="nav-link" href="#">
               Features
             </a>
@@ -43,7 +44,7 @@ const Navbar = () => {
             <a className="nav-link" href="#">
               About
             </a>
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

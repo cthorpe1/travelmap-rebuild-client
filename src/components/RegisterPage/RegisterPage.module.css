@@ -1,0 +1,11 @@
+#SignUpContainer {
+  display: flex;
+  margin: 5% auto;
+  flex-direction: column;
+  align-content: center;
+  width: 700px;
+}
+
+#SignUpContainer h1 {
+  text-align: center;
+}
