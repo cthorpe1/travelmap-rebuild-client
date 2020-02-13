@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoginPage.module.css";
 
-const HomePage = () => {
+const LoginPage = () => {
   const handleLogin = e => {
     e.preventDefault();
 
@@ -18,7 +18,11 @@ const HomePage = () => {
     })
       .then(res => res.json())
       .then(data => {
-        console.log("Data: ", data);
+        if (data.auth === true) {
+          console.log(data);
+        } else {
+          console.log(data);
+        }
       })
       .catch(err => {
         console.log("In Catch Block: ", err);
@@ -63,4 +67,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default LoginPage;

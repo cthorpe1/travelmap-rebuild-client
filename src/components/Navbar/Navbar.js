@@ -1,54 +1,65 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./Navbar.module.css";
+import React, { useState, Fragment } from "react";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Container
+} from "reactstrap";
+import RegisterModal from "../auth/RegisterModal";
+import { connect } from "react-redux";
 
-const Navbar = () => {
+const NavBar = props => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen({
+      isOpen: !isOpen
+    });
+  };
+
+  const { isAuthenticated, user } = props.auth;
+
+  const authLinks = (
+    <Fragment>
+      <NavItem>
+        <span className="navbar-text mr-3">
+          <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+        </span>
+      </NavItem>
+      <NavItem>{/* <Logout /> */}</NavItem>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <NavItem>{<RegisterModal />}</NavItem>
+      <NavItem>{/* <LoginModal /> */}</NavItem>
+    </Fragment>
+  );
+
   return (
-    <nav
-      className="navbar navbar-expand-lg navbar-dark bg-primary"
-      id={styles.Nav}
-    >
-      <Link className="navbar-brand" to="/">
-        Travel Map
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarColor01"
-        aria-controls="navbarColor01"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
-      <div className="collapse navbar-collapse" id="navbarColor01">
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
-            </Link>
-          </li>
-          {/* <li className="nav-item">
-            <a className="nav-link" href="#">
-              Features
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Pricing
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              About
-            </a>
-          </li> */}
-        </ul>
-      </div>
-    </nav>
+    <div>
+      <Navbar color="primary" dark expand="sm" className="mb-5">
+        <Container>
+          <NavbarBrand href="/">Travel Map</NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              {isAuthenticated ? authLinks : guestLinks}
+            </Nav>
+          </Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, null)(NavBar);

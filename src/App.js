@@ -1,23 +1,21 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import store from "./store";
 import Navbar from "./components/Navbar/Navbar";
-import IndexPage from "./components/IndexPage/IndexPage";
-import LoginPage from "./components/LoginPage/LoginPage";
-import RegisterPage from "./components/RegisterPage/RegisterPage";
+import { loadUser } from "./actions/authActions";
 
-function App() {
+function App(props) {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   return (
-    <BrowserRouter>
-      <main className="container">
-        <Navbar />
-        <Switch>
-          <Route path="/" exact component={IndexPage} />
-          <Route path="/login" component={LoginPage} />
-          <Route path="/register" component={RegisterPage} />
-        </Switch>
-      </main>
-    </BrowserRouter>
+    <main className="container">
+      <Navbar />
+    </main>
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps, null)(App);
