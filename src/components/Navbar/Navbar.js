@@ -9,7 +9,9 @@ import {
   NavLink,
   Container
 } from "reactstrap";
+import { logout } from "../../actions/authActions";
 import RegisterModal from "../auth/RegisterModal";
+import LoginModal from "../auth/LoginModal";
 import { connect } from "react-redux";
 
 const NavBar = props => {
@@ -30,14 +32,14 @@ const NavBar = props => {
           <strong>{user ? `Welcome ${user.name}` : ""}</strong>
         </span>
       </NavItem>
-      <NavItem>{/* <Logout /> */}</NavItem>
+      <NavItem><NavLink onClick={props.logout} href="#">Logout</NavLink></NavItem>
     </Fragment>
   );
 
   const guestLinks = (
     <Fragment>
       <NavItem>{<RegisterModal />}</NavItem>
-      <NavItem>{/* <LoginModal /> */}</NavItem>
+      <NavItem>{<LoginModal />}</NavItem>
     </Fragment>
   );
 
@@ -62,4 +64,8 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, null)(NavBar);
+const actionCreators = {
+  logout
+};
+
+export default connect(mapStateToProps, actionCreators)(NavBar);
