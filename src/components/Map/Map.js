@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Map, TileLayer } from "react-leaflet";
-
+import Toolbar from "../Toolbar/Toolbar";
 import styles from "./Map.module.css";
 const MapContainer = () => {
   const MAPBOX_URL = `https://api.mapbox.com/styles/v1/cthorpe4/ck18dwcl84w1l1dqturfu8dfw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiY3Rob3JwZTQiLCJhIjoiY2p6ZzVrNmVnMGlrOTNjcWZ6NnZpaWtuaSJ9.1MxO6Z_Ae3VqLM8huxFegQ`;
@@ -10,6 +10,7 @@ const MapContainer = () => {
   })
   return (
     <div className={styles.MapContainer}>
+      <Toolbar/>
       <Map
         center={position.coords}
         zoom={position.zoom}

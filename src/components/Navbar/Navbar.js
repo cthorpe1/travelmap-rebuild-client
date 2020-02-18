@@ -6,7 +6,6 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   Container
 } from "reactstrap";
 import { logout } from "../../actions/authActions";
@@ -30,7 +29,11 @@ const NavBar = props => {
           <strong>{user ? `Welcome ${user.name}` : ""}</strong>
         </span>
       </NavItem>
-      <NavItem><NavbarBrand onClick={props.logout} href="#">Logout</NavbarBrand></NavItem>
+      <NavItem>
+        <NavbarBrand onClick={props.logout} href="#">
+          Logout
+        </NavbarBrand>
+      </NavItem>
     </Fragment>
   );
 
@@ -43,7 +46,12 @@ const NavBar = props => {
 
   return (
     <div>
-      <Navbar color="primary" dark expand="sm" className="mb-4">
+      <Navbar
+        color="primary"
+        dark
+        expand="sm"
+        className={isAuthenticated ? null : "mb-4"}
+      >
         <Container>
           <NavbarBrand href="/">Travel Map</NavbarBrand>
           <NavbarToggler onClick={toggle} />

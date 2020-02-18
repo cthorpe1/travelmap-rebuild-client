@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { register } from "../../actions/authActions";
+import { REGISTER_FAIL } from "../../actions/types";
 import {
   Alert,
   Button,
@@ -51,10 +52,8 @@ const RegisterModal = props => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Register</ModalHeader>
         <ModalBody>
-          {props.error.id === "REGISTER_FAIL" ? (
-            <Alert color="danger">
-              {props.error.message}
-            </Alert>
+          {props.error.id === REGISTER_FAIL ? (
+            <Alert color="danger">{props.error.message}</Alert>
           ) : null}
           <Form onSubmit={handleRegister}>
             <FormGroup>

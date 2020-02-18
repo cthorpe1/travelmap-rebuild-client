@@ -9,7 +9,7 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL
-} from "../actions/types";
+} from "./types";
 
 //check token and load user
 export const loadUser = () => (dispatch, getState) => {
@@ -57,7 +57,7 @@ export const register = ({
     )
     .catch(err => {
       dispatch(
-        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+        returnErrors(err.response.data, err.response.status, REGISTER_FAIL)
       );
       dispatch({
         type: REGISTER_FAIL
@@ -105,13 +105,14 @@ export const logout = () => {
 export const tokenConfig = getState => {
   //get token from localStorage
   const token = getState().auth.token;
-
   //Headers
-  let headers = {
-    "Content-Type": "application/json"
+  const config = {
+    headers: {
+      "Content-type": "application/json"
+    }
   };
   if (token) {
-    headers["x-auth-token"] = token;
+    config.headers["x-auth-token"] = token;
   }
-  return headers;
+  return config;
 };
