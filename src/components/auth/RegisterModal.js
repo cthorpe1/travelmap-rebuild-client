@@ -7,11 +7,11 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  NavLink,
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  NavbarBrand
 } from "reactstrap";
 
 const RegisterModal = props => {
@@ -45,9 +45,9 @@ const RegisterModal = props => {
   };
   return (
     <div>
-      <NavLink onClick={toggle} href="#">
+      <NavbarBrand onClick={toggle} href="#">
         Register
-      </NavLink>
+      </NavbarBrand>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Register</ModalHeader>
         <ModalBody>

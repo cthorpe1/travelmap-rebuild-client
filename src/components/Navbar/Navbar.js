@@ -18,9 +18,7 @@ const NavBar = props => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
-    setIsOpen({
-      isOpen: !isOpen
-    });
+    setIsOpen(!isOpen);
   };
 
   const { isAuthenticated, user } = props.auth;
@@ -32,7 +30,7 @@ const NavBar = props => {
           <strong>{user ? `Welcome ${user.name}` : ""}</strong>
         </span>
       </NavItem>
-      <NavItem><NavLink onClick={props.logout} href="#">Logout</NavLink></NavItem>
+      <NavItem><NavbarBrand onClick={props.logout} href="#">Logout</NavbarBrand></NavItem>
     </Fragment>
   );
 
@@ -45,7 +43,7 @@ const NavBar = props => {
 
   return (
     <div>
-      <Navbar color="primary" dark expand="sm" className="mb-5">
+      <Navbar color="primary" dark expand="sm" className="mb-4">
         <Container>
           <NavbarBrand href="/">Travel Map</NavbarBrand>
           <NavbarToggler onClick={toggle} />

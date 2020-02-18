@@ -7,7 +7,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  NavLink,
+  NavbarBrand,
   Form,
   FormGroup,
   Label,
@@ -41,9 +41,9 @@ const LoginModal = props => {
   };
   return (
     <div>
-      <NavLink onClick={toggle} href="#">
+      <NavbarBrand onClick={toggle} href="#">
         Login
-      </NavLink>
+      </NavbarBrand>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Login</ModalHeader>
         <ModalBody>
