@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import store from "./store";
 import { Container } from "reactstrap";
 import Navbar from "./components/Navbar/Navbar";
-import MapContainer from "./components/Map/Map";
+import MapContainer from "./components/MapContainer/MapContainer";
 import Splash from "./components/Splash/Splash";
 import { loadUser } from "./actions/authActions";
 

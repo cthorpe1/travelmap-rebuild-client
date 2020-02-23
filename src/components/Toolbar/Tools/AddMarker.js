@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addMarker } from "../../../actions/markerActions";
+import { addTopLevelMarker } from "../../../actions/markerActions";
 import { MARKER_ADD_FAIL } from "../../../actions/types";
 import {
   Alert,
@@ -17,16 +17,20 @@ import countries from "../../../utilities/countries.json";
 
 const AddMarker = props => {
   const [modal, setModal] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(countries[0].name.common);
+  const [selectedCountry, setSelectedCountry] = useState(
+    countries[0].name.common
+  );
 
   const toggle = () => setModal(!modal);
 
   const handleAddMarker = e => {
     e.preventDefault();
     const newCountryMarker = {
-      name: selectedCountry
+      name: selectedCountry,
+      ownedBy: props.auth.user.id,
     };
-    props.addMarker(newCountryMarker);
+    props.addTopLevelMarker(newCountryMarker);
+    toggle();
   };
 
   const handleSelectChange = e => {
@@ -73,12 +77,13 @@ const AddMarker = props => {
 
 const mapStateToProps = state => {
   return {
-    error: state.error
+    error: state.error,
+    auth: state.auth
   };
 };
 
 const actionCreators = {
-  addMarker
+  addTopLevelMarker
 };
 
 export default connect(mapStateToProps, actionCreators)(AddMarker);
