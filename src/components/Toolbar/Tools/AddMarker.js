@@ -20,7 +20,6 @@ const AddMarker = props => {
   const [selectedCountry, setSelectedCountry] = useState(
     countries[0].name.common
   );
-
   const toggle = () => setModal(!modal);
 
   const handleAddMarker = e => {
@@ -30,7 +29,6 @@ const AddMarker = props => {
       ownedBy: props.auth.user.id,
     };
     props.addTopLevelMarker(newCountryMarker);
-    toggle();
   };
 
   const handleSelectChange = e => {
@@ -38,6 +36,7 @@ const AddMarker = props => {
   };
 
   return (
+    
     <div>
       <Button onClick={toggle} color="primary">
         Add Marker
@@ -78,7 +77,8 @@ const AddMarker = props => {
 const mapStateToProps = state => {
   return {
     error: state.error,
-    auth: state.auth
+    auth: state.auth,
+    marker: state.markers
   };
 };
 
