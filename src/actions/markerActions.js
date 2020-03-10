@@ -62,7 +62,6 @@ export const addTopLevelMarker = newMarker => (dispatch, getState) => {
       });
     })
     .catch(err => {
-      console.log(err);
       dispatch(
         returnErrors(err.response.data, err.response.status, MARKER_ADD_FAIL)
       );

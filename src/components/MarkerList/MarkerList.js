@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { Marker } from "react-leaflet";
 import { setActiveMarker } from "../../actions/markerActions";
 import MarkerInfoModal from "../MarkerInfoModal/MarkerInfoModal.js";
-
+import countries from "../../utilities/countries.json";
 const MarkerList = props => {
-  const setActiveMarker = marker => {
-    props.setActiveMarker(marker);
+  const setActiveMarker = e => {
+    let coords = [e.latlng.lat, e.latlng.lng];
+    let activeMarker = countries.find(country => {
+      return country.latlng[0] === coords[0] && country.latlng[1] === coords[1];
+    });
+    props.setActiveMarker(activeMarker);
   };
   return (
     <div>
