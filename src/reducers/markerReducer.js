@@ -6,12 +6,18 @@ import {
   MARKER_ADD_FAIL,
   MARKER_ADD_SUCCESS,
   SET_ACTIVE_MARKER,
-  UNSET_ACTIVE_MARKER
+  UNSET_ACTIVE_MARKER,
+  SET_CURRENT_PARENT,
+  UNSET_CURRENT_PARENT,
+  CREATE_SUBCONTAINER_START,
+  CREATE_SUBCONTAINER_SUCCESS,
+  CREATE_SUBCONTAINER_FAIL
 } from "../actions/types";
 
 const initialState = {
   topLevelMarkers: [],
   activeMarker: { isActive: false, marker: null },
+  currentParent: null,
   isFetching: null
 };
 
@@ -64,6 +70,31 @@ export default function(state = initialState, action) {
           isActive: false,
           marker: null
         }
+      };
+    case SET_CURRENT_PARENT:
+      return {
+        ...state,
+        currentParent: action.payload
+      };
+    case UNSET_CURRENT_PARENT:
+      return {
+        ...state,
+        currentParent: null
+      };
+    case CREATE_SUBCONTAINER_START:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case CREATE_SUBCONTAINER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false
+      };
+    case CREATE_SUBCONTAINER_FAIL:
+      return {
+        ...state,
+        isFetching: false
       };
     default:
       return state;

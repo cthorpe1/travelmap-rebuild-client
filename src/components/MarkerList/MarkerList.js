@@ -10,6 +10,7 @@ const MarkerList = props => {
     let activeMarker = countries.find(country => {
       return country.latlng[0] === coords[0] && country.latlng[1] === coords[1];
     });
+    activeMarker.dbId = e.target.options.marker_id;
     props.setActiveMarker(activeMarker);
   };
   return (
@@ -22,6 +23,7 @@ const MarkerList = props => {
                 key={i}
                 position={marker.coordinates}
                 onClick={setActiveMarker}
+                marker_id={marker._id}
               />
             );
           })}

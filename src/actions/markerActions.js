@@ -9,7 +9,12 @@ import {
   MARKER_ADD_SUCCESS,
   MARKER_ADD_FAIL,
   SET_ACTIVE_MARKER,
-  UNSET_ACTIVE_MARKER
+  UNSET_ACTIVE_MARKER,
+  SET_CURRENT_PARENT,
+  UNSET_CURRENT_PARENT,
+  CREATE_SUBCONTAINER_START,
+  CREATE_SUBCONTAINER_SUCCESS,
+  CREATE_SUBCONTAINER_FAIL
 } from "./types";
 import countries from "../utilities/countries.json";
 
@@ -71,17 +76,56 @@ export const addTopLevelMarker = newMarker => (dispatch, getState) => {
     });
 };
 
-//Set active marker
+//Set Active Marker
 export const setActiveMarker = marker => dispatch => {
   dispatch({
     type: SET_ACTIVE_MARKER,
     payload: marker
   });
+  dispatch({
+    type: SET_CURRENT_PARENT,
+    payload: marker.dbId
+  });
 };
 
-//Unset active marker
+//Unset Active Marker
 export const unsetActiveMarker = () => dispatch => {
   dispatch({
     type: UNSET_ACTIVE_MARKER
   });
+  dispatch({
+    type: UNSET_CURRENT_PARENT
+  });
+};
+
+//Create Subcontainer
+export const createSubContainer = newSubContainer => (dispatch, getState) => {
+  dispatch({ type: CREATE_SUBCONTAINER_START });
+
+  const body = JSON.stringify(newSubContainer);
+
+  axios
+    .post(
+      "http://localhost:5000/markers/add/sub-container",
+      body,
+      tokenConfig(getState)
+    )
+    .then(res => {
+      dispatch({
+        type: CREATE_SUBCONTAINER_SUCCESS
+      });
+      dispatch(getTopLevelMarkers());
+    })
+    .catch(err => {
+      dispatch(
+        returnErrors(
+          err.response.data,
+          err.response.status,
+          CREATE_SUBCONTAINER_FAIL
+        )
+      );
+      dispatch({
+        type: CREATE_SUBCONTAINER_FAIL
+      });
+    });
 };

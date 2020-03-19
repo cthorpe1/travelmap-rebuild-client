@@ -22,3 +22,15 @@ ul {
 .LanguagesContainer li {
   list-style-type: none;
 }
+
+.MemoryTools {
+  margin-bottom: .5em;
+}
+
+.MemoryTools Button {
+  margin-right: .5em;
+}
+
+.MemoryContent {
+  padding: 1em 1em 1em 0;
+}
