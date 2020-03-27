@@ -2,22 +2,26 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { unsetActiveMarker } from "../../actions/markerActions";
 import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
+import MarkerInfo from "./MarkerInfo/MarkerInfo";
+import Memories from "./Memories/Memories";
 import CreateContainer from "./MemoryTools/CreateContainer";
+
 import styles from "./MarkerInfoModal.module.css";
 const MarkerInfoModal = props => {
   const [modal, setModal] = useState(true);
   const [toolToUse, setToolToUse] = useState(null);
 
-  let markerDetails = props.marker.activeMarker.marker;
+  let markerDetails = props.markers.activeMarker.marker;
   let currencyKeys = Object.keys(markerDetails.currencies);
   let languageKeys = Object.keys(markerDetails.languages);
 
-  //When this markers data is pulled from DB, this is where it will go
-  const memoryContent = { containers: [], photos: [] };
+  const memoryContent = {
+    current: props.markers.currentParent
+  };
 
   const loadTool = e => {
     if (e.target.value === "createContainer") {
-      setToolToUse(<CreateContainer />);
+      setToolToUse(<CreateContainer close={setToolToUse} />);
     } else {
     }
   };
@@ -31,44 +35,14 @@ const MarkerInfoModal = props => {
 
   return (
     <div>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal} toggle={toggle} scrollable={true}>
         <ModalHeader toggle={toggle}>{markerDetails.name.common}</ModalHeader>
         <ModalBody>
-          <div className={styles.RegionInfoContainer}>
-            <p>
-              <strong>Capital:</strong> {markerDetails.capital}
-            </p>
-            <p>
-              <strong>Region:</strong> {markerDetails.region}
-            </p>
-            <p>
-              <strong>Subregion:</strong> {markerDetails.subregion}
-            </p>
-          </div>
-          <div className={styles.CurrencyContainer}>
-            <p>
-              <strong>Currencies:</strong>
-            </p>
-            <ul>
-              {currencyKeys.map(key => {
-                return <li key={key}>{markerDetails.currencies[key].name}</li>;
-              })}
-            </ul>
-          </div>
-          <div className={styles.LanguagesContainer}>
-            <p>
-              <strong>Languages:</strong>
-            </p>
-            <ul>
-              {languageKeys.map(key => {
-                return <li key={key}>{markerDetails.languages[key]}</li>;
-              })}
-            </ul>
-          </div>
-          <p>
-            <strong>Description:</strong>
-            <br /> {markerDetails.desc}
-          </p>
+          <MarkerInfo
+            currencyKeys={currencyKeys}
+            languageKeys={languageKeys}
+            markerDetails={markerDetails}
+          />
           <hr />
           <div className={styles.MemoryContainer}>
             <div className={styles.MemoryTools}>
@@ -84,11 +58,22 @@ const MarkerInfoModal = props => {
               </Button>
             </div>
             <div className={styles.MemoryContent}>
-              {/* Show current containers and memories if they exist by default */}
+              {/* Show current containers and photos if they exist by default */}
+              {memoryContent.containers !== null && toolToUse === null ? (
+                <Memories content={memoryContent.current} />
+              ) : null}
 
-              {/* If Create Container button is clicked -> Show form to create  */}
+              {/* If tool button is clicked -> Show tool  */}
               {toolToUse}
-              {/* If Upload Photos button is clicked -> show form to upload */}
+              {toolToUse !== null ? (
+                <Button
+                  color="primary"
+                  block
+                  onClick={() => setToolToUse(null)}
+                >
+                  Cancel
+                </Button>
+              ) : null}
             </div>
           </div>
         </ModalBody>
@@ -99,7 +84,7 @@ const MarkerInfoModal = props => {
 
 const mapStateToProps = state => {
   return {
-    marker: state.markers
+    markers: state.markers
   };
 };
 

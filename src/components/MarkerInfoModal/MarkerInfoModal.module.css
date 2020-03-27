@@ -1,28 +1,3 @@
-.RegionInfoContainer {
-  display: flex;
-  justify-content: space-between;
-}
-
-ul {
-    margin: 0;
-}
-
-.CurrencyContainer {
-  display: flex;
-}
-
-.CurrencyContainer li {
-  list-style-type: none;
-}
-
-.LanguagesContainer {
-  display: flex;
-}
-
-.LanguagesContainer li {
-  list-style-type: none;
-}
-
 .MemoryTools {
   margin-bottom: .5em;
 }

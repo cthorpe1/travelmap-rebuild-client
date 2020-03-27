@@ -15,9 +15,10 @@ const CreateContainer = props => {
     e.preventDefault();
     const newContainer = {
       name: containerName,
-      currentParent: props.markers.currentParent
+      currentParent: props.markers.currentParent.id
     };
     props.createSubContainer(newContainer);
+    props.close(null);
   };
   return (
     <div>

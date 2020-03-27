@@ -14,7 +14,11 @@ import {
   UNSET_CURRENT_PARENT,
   CREATE_SUBCONTAINER_START,
   CREATE_SUBCONTAINER_SUCCESS,
-  CREATE_SUBCONTAINER_FAIL
+  CREATE_SUBCONTAINER_FAIL,
+  GET_SUBCONTAINERS_START,
+  GET_SUBCONTAINERS_SUCCESS,
+  GET_SUBCONTAINERS_FAIL,
+  CLEAR_SUBCONTAINERS
 } from "./types";
 import countries from "../utilities/countries.json";
 
@@ -79,22 +83,25 @@ export const addTopLevelMarker = newMarker => (dispatch, getState) => {
 //Set Active Marker
 export const setActiveMarker = marker => dispatch => {
   dispatch({
-    type: SET_ACTIVE_MARKER,
-    payload: marker
-  });
-  dispatch({
     type: SET_CURRENT_PARENT,
     payload: marker.dbId
   });
+  dispatch({
+    type: SET_ACTIVE_MARKER,
+    payload: marker
+  });
 };
 
-//Unset Active Marker
+//Unset Active Marker and Current Parent and Clear Subcontainers
 export const unsetActiveMarker = () => dispatch => {
   dispatch({
     type: UNSET_ACTIVE_MARKER
   });
   dispatch({
     type: UNSET_CURRENT_PARENT
+  });
+  dispatch({
+    type: CLEAR_SUBCONTAINERS
   });
 };
 
@@ -103,7 +110,6 @@ export const createSubContainer = newSubContainer => (dispatch, getState) => {
   dispatch({ type: CREATE_SUBCONTAINER_START });
 
   const body = JSON.stringify(newSubContainer);
-
   axios
     .post(
       "http://localhost:5000/markers/add/sub-container",
@@ -115,6 +121,7 @@ export const createSubContainer = newSubContainer => (dispatch, getState) => {
         type: CREATE_SUBCONTAINER_SUCCESS
       });
       dispatch(getTopLevelMarkers());
+      dispatch(getSubcontainers(newSubContainer.currentParent));
     })
     .catch(err => {
       dispatch(
@@ -126,6 +133,34 @@ export const createSubContainer = newSubContainer => (dispatch, getState) => {
       );
       dispatch({
         type: CREATE_SUBCONTAINER_FAIL
+      });
+    });
+};
+
+export const getSubcontainers = currentParent => (dispatch, getState) => {
+  dispatch({ type: GET_SUBCONTAINERS_START });
+
+  axios
+    .get(
+      `http://localhost:5000/markers/${currentParent}`,
+      tokenConfig(getState)
+    )
+    .then(results => {
+      dispatch({
+        type: GET_SUBCONTAINERS_SUCCESS,
+        payload: results.data
+      });
+    })
+    .catch(err => {
+      dispatch(
+        returnErrors(
+          err.response.data,
+          err.response.status,
+          GET_SUBCONTAINERS_FAIL
+        )
+      );
+      dispatch({
+        type: GET_SUBCONTAINERS_FAIL
       });
     });
 };

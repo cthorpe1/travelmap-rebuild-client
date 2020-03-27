@@ -1,0 +1,15 @@
+.Subcontainer:hover {
+  cursor: pointer;
+}
+
+.SubcontainerCard {
+  margin: 3px;
+}
+
+.Close {
+  float: right;
+}
+
+.Close:hover {
+  transform: scale(1.2);
+}
