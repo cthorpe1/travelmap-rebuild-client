@@ -9,7 +9,13 @@ import {
 import styles from "./Subcontainer.module.css";
 
 const Subcontainer = props => {
-  const deleteSubcontainer = () => {};
+  const deleteSubcontainer = id => {
+    const body = {
+      currentParent: props.parent,
+      containerToDelete: id
+    };
+    props.deleteSub(body);
+  };
   return (
     <div className={styles.Subcontainer}>
       <Card className={styles.SubcontainerCard}>
@@ -18,7 +24,7 @@ const Subcontainer = props => {
           <span className={styles.Close}>
             <i
               className="fa fa-trash"
-              onClick={deleteSubcontainer}
+              onClick={() => deleteSubcontainer(props.content._id)}
               id="trashcan"
             ></i>
             <UncontrolledTooltip placement="right" target="trashcan">

@@ -18,7 +18,10 @@ import {
   GET_SUBCONTAINERS_START,
   GET_SUBCONTAINERS_SUCCESS,
   GET_SUBCONTAINERS_FAIL,
-  CLEAR_SUBCONTAINERS
+  CLEAR_SUBCONTAINERS,
+  DELETE_SUBCONTAINER_START,
+  DELETE_SUBCONTAINER_SUCCESS,
+  DELETE_SUBCONTAINER_FAIL
 } from "./types";
 import countries from "../utilities/countries.json";
 
@@ -163,4 +166,30 @@ export const getSubcontainers = currentParent => (dispatch, getState) => {
         type: GET_SUBCONTAINERS_FAIL
       });
     });
+};
+
+export const deleteSubcontainer = ({ currentParent, containerToDelete }) => (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: DELETE_SUBCONTAINER_START });
+
+  let body = {
+    currentParent,
+    containerToDelete
+  };
+
+  body = JSON.stringify(body);
+
+  axios
+    .post(
+      `http://localhost:5000/markers/${currentParent}/remove-sub`,
+      body,
+      tokenConfig(getState)
+    )
+    .then(result => {
+      dispatch({ type: DELETE_SUBCONTAINER_SUCCESS });
+      dispatch(getSubcontainers(result.data.id));
+    })
+    .catch(err => console.log(err));
 };

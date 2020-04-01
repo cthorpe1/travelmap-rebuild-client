@@ -15,7 +15,10 @@ import {
   GET_SUBCONTAINERS_START,
   GET_SUBCONTAINERS_SUCCESS,
   GET_SUBCONTAINERS_FAIL,
-  CLEAR_SUBCONTAINERS
+  CLEAR_SUBCONTAINERS,
+  DELETE_SUBCONTAINER_START,
+  DELETE_SUBCONTAINER_SUCCESS,
+  DELETE_SUBCONTAINER_FAIL
 } from "../actions/types";
 
 const initialState = {
@@ -125,6 +128,21 @@ export default function(state = initialState, action) {
       return {
         ...state,
         subContainers: []
+      };
+    case DELETE_SUBCONTAINER_START:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case DELETE_SUBCONTAINER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false
+      };
+    case DELETE_SUBCONTAINER_FAIL:
+      return {
+        ...state,
+        isFetching: false
       };
     default:
       return state;
