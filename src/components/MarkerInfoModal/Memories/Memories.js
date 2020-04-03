@@ -5,7 +5,7 @@ import Subcontainer from "./Subcontainer/Subcontainer";
 import {
   getSubcontainers,
   deleteSubcontainer
-} from "../../../actions/markerActions";
+} from "../../../actions/subcontainerActions";
 const Memories = props => {
   useEffect(() => {
     props.getSubcontainers(props.content.id);
@@ -14,8 +14,8 @@ const Memories = props => {
   return (
     <div>
       <Row xs="3">
-        {props.markers.subContainers !== null &&
-          props.markers.subContainers.map(container => {
+        {props.subContainers.subContainers !== null &&
+          props.subContainers.subContainers.map(container => {
             return (
               <Subcontainer
                 key={container._id}
@@ -32,7 +32,8 @@ const Memories = props => {
 
 const mapStateToProps = state => {
   return {
-    markers: state.markers
+    markers: state.markers,
+    subContainers: state.subContainers
   };
 };
 

@@ -33,7 +33,7 @@ const Subcontainer = props => {
           </span>
         </CardHeader>
         <CardBody>
-          <CardText>Container description will go here</CardText>
+          <CardText>{props.content.description}</CardText>
         </CardBody>
       </Card>
     </div>

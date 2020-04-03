@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { createSubContainer } from "../../../actions/markerActions";
+import { createSubContainer } from "../../../actions/subcontainerActions";
 import { Alert, Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 const CreateContainer = props => {
   const [containerName, setContainerName] = useState("");
+  const [containerDesc, setContainerDesc] = useState("");
 
-  const onChange = e => {
+  const onNameChange = e => {
     const updatedName = e.target.value;
     setContainerName(updatedName);
+  };
+
+  const onDescChange = e => {
+    const updatedDesc = e.target.value;
+    setContainerDesc(updatedDesc);
   };
 
   const handleCreateContainer = e => {
     e.preventDefault();
     const newContainer = {
       name: containerName,
+      description: containerDesc,
       currentParent: props.markers.currentParent.id
     };
     props.createSubContainer(newContainer);
@@ -34,7 +41,16 @@ const CreateContainer = props => {
             placeholder="example: 'Food'"
             value={containerName}
             className="mb-3"
-            onChange={onChange}
+            onChange={onNameChange}
+          />
+          <Input
+            type="textarea"
+            name="containerDesc"
+            id="containerDesc"
+            placeholder="example: These are all of my photos of food from Tokyo"
+            value={containerDesc}
+            className="mb-3"
+            onChange={onDescChange}
           />
           <Button color="primary" style={{ marginTop: "1rem" }} block>
             Create Container

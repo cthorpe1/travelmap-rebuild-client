@@ -9,23 +9,12 @@ import {
   UNSET_ACTIVE_MARKER,
   SET_CURRENT_PARENT,
   UNSET_CURRENT_PARENT,
-  CREATE_SUBCONTAINER_START,
-  CREATE_SUBCONTAINER_SUCCESS,
-  CREATE_SUBCONTAINER_FAIL,
-  GET_SUBCONTAINERS_START,
-  GET_SUBCONTAINERS_SUCCESS,
-  GET_SUBCONTAINERS_FAIL,
-  CLEAR_SUBCONTAINERS,
-  DELETE_SUBCONTAINER_START,
-  DELETE_SUBCONTAINER_SUCCESS,
-  DELETE_SUBCONTAINER_FAIL
 } from "../actions/types";
 
 const initialState = {
   topLevelMarkers: [],
   activeMarker: { isActive: false, marker: null },
   currentParent: null,
-  subContainers: [],
   isFetching: null
 };
 
@@ -92,57 +81,6 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentParent: null
-      };
-    case CREATE_SUBCONTAINER_START:
-      return {
-        ...state,
-        isFetching: true
-      };
-    case CREATE_SUBCONTAINER_SUCCESS:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case CREATE_SUBCONTAINER_FAIL:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case GET_SUBCONTAINERS_START:
-      return {
-        ...state,
-        isFetching: true
-      };
-    case GET_SUBCONTAINERS_SUCCESS:
-      return {
-        ...state,
-        subContainers: action.payload,
-        isFetching: false
-      };
-    case GET_SUBCONTAINERS_FAIL:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case CLEAR_SUBCONTAINERS:
-      return {
-        ...state,
-        subContainers: []
-      };
-    case DELETE_SUBCONTAINER_START:
-      return {
-        ...state,
-        isFetching: true
-      };
-    case DELETE_SUBCONTAINER_SUCCESS:
-      return {
-        ...state,
-        isFetching: false
-      };
-    case DELETE_SUBCONTAINER_FAIL:
-      return {
-        ...state,
-        isFetching: false
       };
     default:
       return state;
