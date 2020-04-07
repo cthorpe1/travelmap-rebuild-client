@@ -4,10 +4,10 @@ import { Marker } from "react-leaflet";
 import { setActiveMarker } from "../../actions/markerActions";
 import MarkerInfoModal from "../MarkerInfoModal/MarkerInfoModal.js";
 import countries from "../../utilities/countries.json";
-const MarkerList = props => {
-  const setActiveMarker = e => {
+const MarkerList = (props) => {
+  const setActiveMarker = (e) => {
     let coords = [e.latlng.lat, e.latlng.lng];
-    let activeMarker = countries.find(country => {
+    let activeMarker = countries.find((country) => {
       return country.latlng[0] === coords[0] && country.latlng[1] === coords[1];
     });
     activeMarker.dbId = e.target.options.marker_id;
@@ -33,14 +33,14 @@ const MarkerList = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    markers: state.markers
+    markers: state.markers,
   };
 };
 
 const actionCreators = {
-  setActiveMarker
+  setActiveMarker,
 };
 
 export default connect(mapStateToProps, actionCreators)(MarkerList);

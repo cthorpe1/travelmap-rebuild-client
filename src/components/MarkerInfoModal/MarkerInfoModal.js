@@ -5,9 +5,10 @@ import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import MarkerInfo from "./MarkerInfo/MarkerInfo";
 import Memories from "./Memories/Memories";
 import CreateContainer from "./MemoryTools/CreateContainer";
+import UploadPhoto from "./MemoryTools/UploadPhoto";
 
 import styles from "./MarkerInfoModal.module.css";
-const MarkerInfoModal = props => {
+const MarkerInfoModal = (props) => {
   const [modal, setModal] = useState(true);
   const [toolToUse, setToolToUse] = useState(null);
 
@@ -16,13 +17,14 @@ const MarkerInfoModal = props => {
   let languageKeys = Object.keys(markerDetails.languages);
 
   const memoryContent = {
-    current: props.markers.currentParent
+    current: props.markers.currentParent,
   };
 
-  const loadTool = e => {
+  const loadTool = (e) => {
     if (e.target.value === "createContainer") {
       setToolToUse(<CreateContainer close={setToolToUse} />);
-    } else {
+    } else if (e.target.value === "uploadPhoto") {
+      setToolToUse(<UploadPhoto close={setToolToUse} />);
     }
   };
 
@@ -65,15 +67,15 @@ const MarkerInfoModal = props => {
 
               {/* If tool button is clicked -> Show tool  */}
               {toolToUse}
-              {toolToUse !== null ? (
+              {/* {toolToUse !== null ? (
                 <Button
                   color="primary"
-                  block
                   onClick={() => setToolToUse(null)}
+                  style={{ display: "inline" }}
                 >
                   Cancel
                 </Button>
-              ) : null}
+              ) : null} */}
             </div>
           </div>
         </ModalBody>
@@ -82,14 +84,14 @@ const MarkerInfoModal = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    markers: state.markers
+    markers: state.markers,
   };
 };
 
 const actionCreators = {
-  unsetActiveMarker
+  unsetActiveMarker,
 };
 
 export default connect(mapStateToProps, actionCreators)(MarkerInfoModal);
