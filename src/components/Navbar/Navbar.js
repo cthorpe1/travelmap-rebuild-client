@@ -6,14 +6,14 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  Container
+  Container,
 } from "reactstrap";
 import { logout } from "../../actions/authActions";
 import RegisterModal from "../auth/RegisterModal";
 import LoginModal from "../auth/LoginModal";
 import { connect } from "react-redux";
 
-const NavBar = props => {
+const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -24,16 +24,10 @@ const NavBar = props => {
 
   const authLinks = (
     <Fragment>
-      <NavItem>
-        <span className="navbar-text mr-3">
-          <strong>{user ? `Welcome ${user.name}` : ""}</strong>
-        </span>
-      </NavItem>
-      <NavItem>
-        <NavbarBrand onClick={props.logout} href="#">
-          Logout
-        </NavbarBrand>
-      </NavItem>
+      <NavbarBrand>{user ? `Welcome ${user.name}` : ""}</NavbarBrand>
+      <NavbarBrand onClick={props.logout} href="#">
+        Logout
+      </NavbarBrand>
     </Fragment>
   );
 
@@ -53,7 +47,9 @@ const NavBar = props => {
         className={isAuthenticated ? null : "mb-4"}
       >
         <Container>
-          <NavbarBrand href="/">Travel Map</NavbarBrand>
+          <NavbarBrand href="/">
+            <strong>Travel Map</strong>
+          </NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -66,12 +62,12 @@ const NavBar = props => {
   );
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 const actionCreators = {
-  logout
+  logout,
 };
 
 export default connect(mapStateToProps, actionCreators)(NavBar);

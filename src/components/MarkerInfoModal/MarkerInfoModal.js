@@ -5,7 +5,7 @@ import { Modal, ModalHeader, ModalBody, Button } from "reactstrap";
 import MarkerInfo from "./MarkerInfo/MarkerInfo";
 import Memories from "./Memories/Memories";
 import CreateContainer from "./MemoryTools/CreateContainer";
-import UploadPhoto from "./MemoryTools/UploadPhoto";
+import UploadPhoto from "./MemoryTools/UploadPhoto/UploadPhoto";
 
 import styles from "./MarkerInfoModal.module.css";
 const MarkerInfoModal = (props) => {
