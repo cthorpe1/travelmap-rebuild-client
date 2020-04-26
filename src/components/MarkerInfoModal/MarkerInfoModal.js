@@ -67,15 +67,6 @@ const MarkerInfoModal = (props) => {
 
               {/* If tool button is clicked -> Show tool  */}
               {toolToUse}
-              {/* {toolToUse !== null ? (
-                <Button
-                  color="primary"
-                  onClick={() => setToolToUse(null)}
-                  style={{ display: "inline" }}
-                >
-                  Cancel
-                </Button>
-              ) : null} */}
             </div>
           </div>
         </ModalBody>

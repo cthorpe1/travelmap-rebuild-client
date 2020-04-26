@@ -15,72 +15,69 @@ const initialState = {
   topLevelMarkers: [],
   activeMarker: { isActive: false, marker: null },
   currentParent: null,
-  isFetching: null
+  isFetching: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   switch (action.type) {
     case GET_TOP_MARKERS_START:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case GET_TOP_MARKERS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        topLevelMarkers: action.payload
+        topLevelMarkers: action.payload,
       };
     case GET_TOP_MARKERS_FAIL:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
     case MARKER_ADD_START:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
       };
     case MARKER_ADD_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        topLevelMarkers: [...state.topLevelMarkers, action.payload]
+        topLevelMarkers: [...state.topLevelMarkers, action.payload],
       };
     case MARKER_ADD_FAIL:
       return {
         ...state,
-        isFetching: false
+        isFetching: false,
       };
     case SET_ACTIVE_MARKER:
       return {
         ...state,
         activeMarker: {
           isActive: true,
-          marker: action.payload
-        }
+          marker: action.payload,
+        },
       };
     case UNSET_ACTIVE_MARKER:
       return {
         ...state,
         activeMarker: {
           isActive: false,
-          marker: null
-        }
+          marker: null,
+        },
       };
     case SET_CURRENT_PARENT:
       let parent = { id: action.payload };
-      parent.subContainers = state.topLevelMarkers.find(marker => {
-        return marker._id === parent.id;
-      }).subContainers;
       return {
         ...state,
-        currentParent: parent
+        currentParent: parent,
       };
     case UNSET_CURRENT_PARENT:
       return {
         ...state,
-        currentParent: null
+        currentParent: null,
       };
     default:
       return state;

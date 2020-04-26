@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { uploadFiles } from "../../../../actions/photoActions";
+import { uploadPhotos } from "../../../../actions/photoActions";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import styles from "./UploadPhoto.module.css";
 const UploadPhoto = (props) => {
@@ -22,12 +22,16 @@ const UploadPhoto = (props) => {
 
   const handleFileUpload = () => {
     const fd = new FormData();
-
+    fd.append("currentParent", props.markers.currentParent.id);
     for (let i = 0; i < photos.toUpload.length; i++) {
       fd.append("img", photos.toUpload[i]);
     }
-
-    props.uploadFiles(fd);
+    setPhotos({
+      toDisplay: [],
+      toUpload: [],
+    });
+    props.uploadPhotos(fd);
+    props.close();
   };
   return (
     <div>
@@ -59,7 +63,12 @@ const UploadPhoto = (props) => {
           >
             Select Photos
           </Button>
-          <Button color="primary" onClick={handleFileUpload} className="mr-3">
+          <Button
+            color="primary"
+            onClick={handleFileUpload}
+            className="mr-3"
+            disabled={photos.toUpload.length > 0 ? false : true}
+          >
             Upload Photos
           </Button>
           <Button color="danger" onClick={() => props.close(null)}>
@@ -75,11 +84,12 @@ const mapStateToProps = (state) => {
   return {
     error: state.error,
     photos: state.photos,
+    markers: state.markers,
   };
 };
 
 const actionCreators = {
-  uploadFiles,
+  uploadPhotos,
 };
 
 export default connect(mapStateToProps, actionCreators)(UploadPhoto);

@@ -4,18 +4,20 @@ import { Row } from "reactstrap";
 import Subcontainer from "./Subcontainer/Subcontainer";
 import {
   getSubcontainers,
-  deleteSubcontainer
+  deleteSubcontainer,
 } from "../../../actions/subcontainerActions";
-const Memories = props => {
+import { getPhotos } from "../../../actions/photoActions";
+const Memories = (props) => {
   useEffect(() => {
     props.getSubcontainers(props.content.id);
+    props.getPhotos(props.content.id);
   }, []);
 
   return (
     <div>
       <Row xs="3">
         {props.subContainers.subContainers !== null &&
-          props.subContainers.subContainers.map(container => {
+          props.subContainers.subContainers.map((container) => {
             return (
               <Subcontainer
                 key={container._id}
@@ -30,16 +32,18 @@ const Memories = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     markers: state.markers,
-    subContainers: state.subContainers
+    subContainers: state.subContainers,
+    photos: state.photos,
   };
 };
 
 const actionCreators = {
   getSubcontainers,
-  deleteSubcontainer
+  deleteSubcontainer,
+  getPhotos,
 };
 
 export default connect(mapStateToProps, actionCreators)(Memories);

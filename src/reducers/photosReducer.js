@@ -1,28 +1,28 @@
 import {
-  UPLOAD_FILES_SUCCESS,
-  UPLOAD_FILES_START,
-  UPLOAD_FILES_FAIL,
+  UPLOAD_PHOTOS_SUCCESS,
+  UPLOAD_PHOTOS_START,
+  UPLOAD_PHOTOS_FAIL,
 } from "../actions/types";
 
 const initialState = {
-  filesToUpload: [],
+  photosToUpload: [],
   uploading: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case UPLOAD_FILES_START:
+    case UPLOAD_PHOTOS_START:
       return {
         ...state,
         uploading: true,
       };
-    case UPLOAD_FILES_SUCCESS:
+    case UPLOAD_PHOTOS_SUCCESS:
       return {
         ...state,
         uploading: false,
-        filesToUpload: action.payload,
+        photosToUpload: action.payload,
       };
-    case UPLOAD_FILES_FAIL:
+    case UPLOAD_PHOTOS_FAIL:
       return {
         ...state,
         uploading: false,
